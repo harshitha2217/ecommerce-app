@@ -3,8 +3,8 @@ FROM node:16-alpine
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json first to leverage Docker caching
-COPY package.json package-lock.json ./
+# Copy package.json first (package-lock.json is missing, so we don't copy it)
+COPY package.json ./
 
 # Install dependencies
 RUN npm install

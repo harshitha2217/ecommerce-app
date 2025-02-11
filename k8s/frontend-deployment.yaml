@@ -2,15 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
+  labels:
+    app: ecommerce  # Unified label for service selection
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: frontend
+      app: ecommerce  # Matches service selector
   template:
     metadata:
       labels:
-        app: frontend
+        app: ecommerce
     spec:
       containers:
       - name: frontend

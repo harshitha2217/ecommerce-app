@@ -4,16 +4,16 @@ metadata:
   name: ecommerce-service
 spec:
   selector:
-    app: ecommerce  # Matches both frontend and backend deployments
+    app: ecommerce
   ports:
     - name: frontend
       protocol: TCP
-      port: 80          # External access port
-      targetPort: 3000  # Matches frontend container port
-      nodePort: 30080   # Exposed node port (must be between 30000-32767)
+      port: 80
+      targetPort: 3000
+      nodePort: 30080
     - name: backend
       protocol: TCP
-      port: 5000        # External access port
-      targetPort: 5000  # Matches backend container port
-      nodePort: 30500   # Exposed node port
-  type: NodePort  # Allows external access
+      port: 5000
+      targetPort: 5000
+      nodePort: 30500
+  type: NodePort

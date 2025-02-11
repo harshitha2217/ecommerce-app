@@ -3,19 +3,34 @@ kind: Deployment
 metadata:
   name: backend-deployment
   labels:
-    app: ecommerce  # Unified label for service selection
+    app: ecommerce
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: ecommerce  # Matches service selector
+      app: ecommerce
   template:
     metadata:
       labels:
         app: ecommerce
     spec:
+      imagePullSecrets:
+      - name: ibmcloud-registry-secret
       containers:
       - name: backend
-        image: us.icr.io/ecommerce-app/backend-app:1.0
+        image: us-south.icr.io/ecommerce-app/backend-app:1.0  # Ensure correct registry
         ports:
         - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: ecommerce
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP  # Change to LoadBalancer if external access is needed

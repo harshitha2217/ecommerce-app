@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: <region>.icr.io/<namespace>/frontend-app:1.0
+        image: global.icr.io/ecommerce-app/frontend-app:1.0
         ports:
         - containerPort: 3000

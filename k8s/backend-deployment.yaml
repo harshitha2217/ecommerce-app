@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: backend
-        image: global.icr.io/ecommerce-app/backend-app:1.0
+        image: us.icr.io/ecommerce-app/backend-app:1.0
         ports:
         - containerPort: 5000

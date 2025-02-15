@@ -2,20 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
-  labels:
-    app: ecommerce  # Unified label for service selection
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: ecommerce  # Matches service selector
+      app: frontend
   template:
     metadata:
       labels:
-        app: ecommerce
+        app: frontend
     spec:
       containers:
       - name: frontend
         image: us.icr.io/ecommerce-app/frontend-app:1.0
         ports:
         - containerPort: 3000
+ 

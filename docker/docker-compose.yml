@@ -1,35 +1,19 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  app:
-    build: .
-    container_name: node-app
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    restart: always
+
+  frontend:
+    build: ./public
     ports:
       - "3000:3000"
     depends_on:
-      - db
-    environment:
-      - DB_HOST=db
-      - DB_USER=root
-      - DB_PASSWORD=root
-      - DB_NAME=ecommerce
-    volumes:
-      - .:/app
-    command: npm start
-
-  db:
-    image: mysql:8
-    container_name: ecommerce-db
+      - backend
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: ecommerce
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    ports:
-      - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-
-volumes:
-  db_data:
+ 

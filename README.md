@@ -2,35 +2,6 @@
 
 This repository contains a complete CI/CD pipeline implementation with a frontend and backend application, deployed using Docker containers and Kubernetes.
 
-## Project Structure
-cicd-project/
-│── .github/
-│   └── workflows/
-│       └── ci-cd-pipeline.yml
-│── public/             # Frontend
-│   ├── Dockerfile
-│   ├── index.html
-│   ├── main.js
-│   └── package.json
-│── server/             # Backend
-│   ├── Dockerfile
-│   ├── server.js
-│   └── package.json
-│── k8s/                # Kubernetes Manifests
-│   ├── frontend-deployment.yaml
-│   ├── backend-deployment.yaml
-│   ├── frontend-service.yaml
-│   ├── backend-service.yaml
-│── scripts/
-│   ├── start-minikube.sh
-│   ├── deploy-app.sh
-│   └── test-app.sh
-│── .gitignore
-│── README.md
-│── docker-compose.yml
-│── minikube-config.yaml
-
-
 ## Components
 
 ### Frontend Application

@@ -1,0 +1,47 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install IBM Cloud CLI
+        run: |
+          curl -o IBMCloudCLI.msi https://download.clis.cloud.ibm.com/ibm-cloud-cli/installer/windows/IBMCloudCLI.msi
+          msiexec /i IBMCloudCLI.msi /quiet /norestart
+          ibmcloud plugin install container-registry
+        shell: cmd
+
+      - name: Login to IBM Cloud
+        run: |
+          ibmcloud login --apikey "8mPQzHaBdOvjK8ghpG7_C9Xi2Mr4mg4gAoiJNj22HrsT"
+          ibmcloud cr login
+        shell: cmd
+
+      - name: Build and Push Docker Images
+        run: |
+          docker build -t frontend-app:1.0 ./public
+          docker build -t backend-app:1.0 ./server
+          docker tag frontend-app:1.0 us.icr.io/ecommerce-app/frontend-app:1.0
+          docker tag backend-app:1.0 us.icr.io/ecommerce-app/backend-app:1.0
+          docker push us.icr.io/ecommerce-app/frontend-app:1.0
+          docker push us.icr.io/ecommerce-app/backend-app:1.0
+        shell: cmd
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - name: Deploy to Minikube
+        run: |
+          minikube start
+          kubectl apply -f k8s/frontend-deployment.yaml
+          kubectl apply -f k8s/backend-deployment.yaml
+        shell: cmd
